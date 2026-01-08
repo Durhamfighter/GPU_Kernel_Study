@@ -25,3 +25,12 @@ mkdir -p "$NEW_FOLDER/cuda"
 
 echo "Created folder: $NEW_FOLDER with triton and cuda subfolders"
 
+# Create git branch for the new day
+BRANCH_NAME="day${NEXT_DAY}"
+if git rev-parse --git-dir > /dev/null 2>&1; then
+    git checkout -b "$BRANCH_NAME"
+    echo "Created and switched to git branch: $BRANCH_NAME"
+else
+    echo "Warning: Not a git repository. Skipping branch creation."
+fi
+

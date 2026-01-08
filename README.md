@@ -3,8 +3,6 @@ Triton/Cuda Kernel Study
 
 Each folder that starts with "day" will have two subfolders, one for Triton and the other one for Cuda. 
 
-
-
 # 🚀 CUDA & Triton 100-Day Challenge
 
 This challenge focuses on implementing high-performance kernels in both **CUDA (C++)** and **Triton (Python)**. Every day requires a code PR that passes functional verification and performance benchmarks on **LeetGPU**.
