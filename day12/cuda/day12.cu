@@ -6,8 +6,8 @@ __global__ void vector_average(float *x, float *block_sum ,int num_elements){
     int tid = threadIdx.x ; 
     int idx = blockDim.x * blockIdx.x + tid; // 벡터 x에서의 idx
     
-    smem[tid] = (idx < nume_elements) ? x[idx] : 0.0f; // smem 에 저장
-    syncthreads(); // thread syncronization
+    smem[tid] = (idx < num_elements) ? x[idx] : 0.0f; // smem 에 저장
+    __syncthreads(); // thread syncronization
 
     for (int s = blockDim.x/2; s>0; s=s/2){
         if (tid<s){
@@ -78,11 +78,11 @@ int main(){
     float count = 0.0f;
     for (int i= 0; i<gridDim.x; i++){
 
-        total += h_block_sum[i] * block_count[i];
+        total += h_block_sum[i];
         count += block_count[i];
     }
     float global_mean = total / count;
-    print(global_mean);
+    printf("global_mean: %f\n",global_mean);
     cudaFree(d_x);
     free(h_x);
 }
