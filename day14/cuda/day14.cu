@@ -6,10 +6,9 @@ __global__ void l2norm(float *x, float *y, int n_rows, int n_cols){
     int row = blockIdx.x;
     int col = threadIdx.x; 
     float cul_sum = 0.0f;
-    for (int col_start = col; col_start<n_cols; col_start += BlockDim.x){
+    for (int col_start = col; col_start<n_cols; col_start += blockDim.x){
             cul_sum+=x[row*n_cols+col_start]*x[row*n_cols+col_start];
         }
-    }
     sdata[col] = cul_sum;
     __syncthreads();
 
@@ -18,12 +17,13 @@ __global__ void l2norm(float *x, float *y, int n_rows, int n_cols){
         sdata[col] = sdata[col] + sdata[col + offset];
     }
     __syncthreads();
+    }
     if (col == 0)
         y[row] = sqrtf(sdata[0]);
     __syncthreads();
 }
 
-int main() {
+int main(){
     // matrix shape
     int n_rows = 352;
     int n_cols = 1000;
