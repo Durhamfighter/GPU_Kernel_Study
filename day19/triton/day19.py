@@ -1,8 +1,7 @@
 import triton 
 import triton.language as tl 
 import torch
-def tl_round(x):
-    return tl.where(x >= 0, tl.floor(x + 0.5), tl.ceil(x - 0.5))
+
 @triton.jit
 def weight_quant_int8(weight_ptr,weight_stride,q_weight_ptr,q_weight_stride,num_cols,scale_ptr,BLOCK_SIZE : tl.constexpr):
     row = tl.program_id(axis=0)
