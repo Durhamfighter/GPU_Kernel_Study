@@ -41,8 +41,8 @@ int main() {
             if (abs_w > max_abs) {
             max_abs = abs_w;
             }
-            h_scale[r] = max_abs/127;
         }
+        h_scale[r] = max_abs/127;
     }
 
 
